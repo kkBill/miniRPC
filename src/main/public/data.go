@@ -6,6 +6,6 @@ type User struct {
 }
 
 type ResponseQueryUser struct {
-	User     // 结构体的嵌套？？
+	User     // 结构体的嵌套？？why not like this: user User
 	Msg string
 }

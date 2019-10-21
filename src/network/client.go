@@ -1,4 +1,4 @@
-package miniRPC
+package network
 
 import (
 	"errors"
@@ -10,20 +10,20 @@ type Client struct {
 	conn net.Conn
 }
 
-func createClient(conn net.Conn) *Client {
+func CreateClient(conn net.Conn) *Client {
 	return &Client{conn: conn}
 }
 
-// Call() 接口到底定在哪里？
+//
 func (c *Client) Call(name string, fptr interface{}) {
 	//
 	fn := reflect.ValueOf(fptr).Elem()
 
 	//
 	f := func(req []reflect.Value) []reflect.Value {
-		clientConn := createConnector(c.conn)
+		clientConn := CreateConnector(c.conn)
 
-		//
+		// 异常处理函数（这个函数看不懂!）
 		errorHandler := func(err error) []reflect.Value {
 			// NumOut：返回func类型的返回值个数，如果不是函数，将会panic
 			outArgs := make([]reflect.Value, fn.Type().NumOut())
@@ -42,7 +42,7 @@ func (c *Client) Call(name string, fptr interface{}) {
 			inArgs = append(inArgs, req[i].Interface()) // appends elements to the end of a slice.
 		}
 		// send request to server
-		err := clientConn.Send(Data{name: name, args: inArgs})
+		err := clientConn.Send(Data{Name: name, Args: inArgs})
 		if err != nil { // local network error or encode error
 			return errorHandler(err)
 		}
@@ -53,13 +53,13 @@ func (c *Client) Call(name string, fptr interface{}) {
 			return errorHandler(err)
 		}
 		// remote server error
-		if response.err != "" {
-			return errorHandler(errors.New(response.err))
+		if response.Err != "" {
+			return errorHandler(errors.New(response.Err))
 		}
 
 		// ??
-		if len(response.args) == 0 {
-			response.args = make([]interface{}, fn.Type().NumOut())
+		if len(response.Args) == 0 {
+			response.Args = make([]interface{}, fn.Type().NumOut())
 		}
 
 		// unpackage response arguements
@@ -69,10 +69,10 @@ func (c *Client) Call(name string, fptr interface{}) {
 			if i != numOut-1 { //
 				// if argument is nil (gob will ignore "Zero" in transmission), set "Zero" value
 				// ??
-				if response.args[i] == nil{
+				if response.Args[i] == nil {
 					outArgs[i] = reflect.Zero(fn.Type().Out(i))
-				}else{
-					outArgs[i] = reflect.ValueOf(response.args[i])
+				} else {
+					outArgs[i] = reflect.ValueOf(response.Args[i])
 				}
 			} else { // 处理 error 参数
 				outArgs[i] = reflect.Zero(fn.Type().Out(i))

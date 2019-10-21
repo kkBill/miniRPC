@@ -2,8 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b494ce2-47f3-4e75-b9d3-c30bb25bbacb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/client/client.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/server/server.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/serverDemo.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/client/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/example/client/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/network/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/codec.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/network/codec.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/connector.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/network/connector.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/network/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/client/client.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/public/data.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/public/data.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,6 +32,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GoLibraries">
+    <option name="urls">
+      <list>
+        <option value="file://$PROJECT_DIR$" />
+      </list>
+    </option>
+  </component>
   <component name="ProjectId" id="1SRoyPt8zWvt0z7znhxZSmUDWzd" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -30,9 +47,21 @@
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="configurable.Global.GOPATH.is.expanded" value="true" />
+    <property name="configurable.Module.GOPATH.is.expanded" value="false" />
+    <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../godemo" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.goide.configuration.GoLibrariesConfigurableProvider" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\workspace\miniRPC\src\main\server" />
+      <recent name="D:\workspace\miniRPC\src\main\client" />
+      <recent name="D:\workspace\miniRPC\src\main\public" />
+      <recent name="D:\workspace\miniRPC\src\main" />
+      <recent name="D:\workspace\miniRPC\src\test" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -46,7 +75,16 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Build.go build test">
+    <configuration name="go build main" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="miniRPC" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/src/main/server.go" />
+      <package value="main" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
     <configuration name="go build server.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="miniRPC" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -55,8 +93,19 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
+    <configuration name="go build test" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="miniRPC" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/src/test/test.go" />
+      <package value="test" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build test" />
+        <item itemvalue="Go Build.go build main" />
         <item itemvalue="Go Build.go build server.go" />
       </list>
     </recent_temporary>

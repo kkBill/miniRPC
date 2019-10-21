@@ -1,4 +1,4 @@
-package miniRPC
+package network
 
 import (
 	"fmt"
@@ -8,26 +8,27 @@ import (
 	"reflect"
 )
 
+// 注意结构体成员变量首个字母的大小写
+// 如果首字母是小写的，则表示该字段不允许被 外部包 访问
+// 如果首字母是大写的，则表示该字段允许被 外部包 访问
 type Server struct {
 	ipAddr   string                   //网络地址
 	function map[string]reflect.Value //函数名与函数实体之间的映射
 }
 
-func createServer(ipAddr string) *Server {
+// 函数名首字母大小写问题，同结构体成员变量一样
+func CreateServer(ipAddr string) *Server {
 	return &Server{ipAddr: ipAddr, function: make(map[string]reflect.Value)}
 }
 
 func (s *Server) Run() {
-	//返回在一个本地网络地址laddr上监听的Listener。
-	// 网络类型参数net必须是面向流的网络："tcp"、"tcp4"、"tcp6"、"unix"或"unixpacket"。
 	listener, err := net.Listen("tcp", s.ipAddr)
 	if err != nil {
 		log.Printf("listen on %s error: %v\n", s.ipAddr, err)
 		return
 	}
 	for {
-		// Accept用于实现Listener接口的Accept方法；
-		// 他会等待下一个呼叫，并返回一个该呼叫的Conn接口。
+
 		conn, err := listener.Accept()
 		if err != nil {
 			log.Printf("accept error: %v\n", err)
@@ -35,11 +36,13 @@ func (s *Server) Run() {
 		}
 
 		go func() {
-			connector := createConnector(conn)
+			connector := CreateConnector(conn)
 			for {
 				// 从客户端接收数据
+				// 客户端传输过来的函数名和参数列表均存放在 data 结构体中
 				data, err := connector.Receive()
 				if err != nil {
+					log.Printf("receive error: %v\n", err)
 					if err != io.EOF {
 						log.Printf("read error: %v\n", err)
 					}
@@ -47,22 +50,22 @@ func (s *Server) Run() {
 				}
 
 				// 根据函数名获取函数
-				f, ok := s.function[data.name]
+				f, ok := s.function[data.Name]
 				if !ok { // 客户端请求的函数不存在
-					e := fmt.Sprintf("function %s does not exist!", data.name)
+					e := fmt.Sprintf("function %s does not exist!", data.Name)
 					log.Println(e)
-					if err = connector.Send(Data{name: data.name, err: e}); err != nil {
+					if err = connector.Send(Data{Name: data.Name, Err: e}); err != nil {
 						log.Printf("transmit error-info from server to client error: %v\n", err)
 					}
 					continue
 				}
 
-				log.Printf("function %s is called\n", data.name)
+				log.Printf("function %s is called\n", data.Name)
 
 				// 提取参数
-				inArgs := make([]reflect.Value, len(data.args))
-				for i := range data.args {
-					inArgs[i] = reflect.ValueOf(data.args[i]) // ??
+				inArgs := make([]reflect.Value, len(data.Args))
+				for i := range data.Args {
+					inArgs[i] = reflect.ValueOf(data.Args[i]) // ??
 				}
 
 				// 调用相应的函数，并返回相应的结果
@@ -82,7 +85,7 @@ func (s *Server) Run() {
 				}
 
 				// 把结果返回给 客户端
-				err = connector.Send(Data{name: data.name, args: outArgs, err: e})
+				err = connector.Send(Data{Name: data.Name, Args: outArgs, Err: e})
 				if err != nil {
 					log.Printf("transmit result from server to client error: %v\n", err)
 				}
@@ -91,8 +94,7 @@ func (s *Server) Run() {
 	}
 }
 
-// 根据名字注册方法
-// Register 是什么哪里定义的接口？？
+// 注册服务
 func (s *Server) Register(name string, f interface{}) {
 	// 如果方法已经注册过了，就直接返回；否则就需要注册
 	if _, ok := s.function[name]; ok {
