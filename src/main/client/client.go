@@ -2,16 +2,16 @@ package main
 
 import (
 	"encoding/gob"
+	"fmt"
 	"log"
 	"net"
 
-	"main/public"
+	"main/service"
 	"network"
 )
 
 func main() {
-	// ??
-	gob.Register(public.ResponseQueryUser{})
+	gob.Register(service.ResponseQueryUser{})
 
 	addr := "0.0.0.0:2333"
 	conn, err := net.Dial("tcp", addr)
@@ -23,35 +23,12 @@ func main() {
 	client := network.CreateClient(conn)
 
 	// 本地的函数声明（只有声明，没有实现）
-	var correctQuery func(int) (public.ResponseQueryUser, error)
-	//var wrongQuery func(int) (public.ResponseQueryUser, error)
+	var queryUser func(int) (service.ResponseQueryUser, error)
 
 	// 远程调用
-	client.Call("queryUser", &correctQuery)
-
-	user, err := correctQuery(1) // 卡在这里了
-
-	log.Println("xxxxxx")
-	if err != nil {
-		log.Printf("query error: %v\n", err)
-	} else {
-		log.Printf("query result: %v %v %v\n", user.Name, user.Age, user.Msg)
-	}
-
-	//user, err = correctQuery(2)
-	//if err!=nil {
-	//	log.Printf("query error: %v\n", err)
-	//}else {
-	//	log.Printf("query result: %v %v %v\n", user.Name, user.Age, user.Msg)
-	//}
-
-	//client.Call("queryUser", &wrongQuery)
-	//user, err = wrongQuery(1)
-	//if err!=nil {
-	//	log.Printf("query error: %v\n", err)
-	//}else {
-	//	log.Printf("query result: %v %v %v\n", user.Name, user.Age, user.Msg)
-	//}
+	client.Call("queryUser", &queryUser)
+	user, err := queryUser(1)
+	fmt.Println(user)
 
 	conn.Close()
 }

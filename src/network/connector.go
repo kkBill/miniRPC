@@ -22,8 +22,8 @@ func (c *Connector) Send(data Data) error {
 		return err
 	}
 	buf := make([]byte, len(bytes)+4)
-	binary.BigEndian.PutUint32(buf[:4], uint32(len(buf))) // 设置头部（头部存放本条数据的字节长度）
-	copy(buf[4:], bytes)                                  // 在头部之后存放真实的数据
+	binary.BigEndian.PutUint32(buf[:4], uint32(len(bytes))) // set header(the length of the piece of data)
+	copy(buf[4:], bytes)                                  // real data
 	_, err = c.conn.Write(buf)                            // writes data to the connection.
 	return err
 }

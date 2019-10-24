@@ -2,18 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b494ce2-47f3-4e75-b9d3-c30bb25bbacb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/client/client.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/server/server.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/serverDemo.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/network/client.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/codec.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/network/codec.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/connector.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/network/connector.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/network/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/client/client.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/public/data.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/public/data.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/client/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/client/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/public/data.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/service/data.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/server/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/network/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/network/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/network/connector.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/network/connector.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

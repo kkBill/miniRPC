@@ -14,12 +14,13 @@ func CreateClient(conn net.Conn) *Client {
 	return &Client{conn: conn}
 }
 
-//
-func (c *Client) Call(name string, fptr interface{}) {
+// 客户端希望调用远程的 serviceMethod 方法
+// 客户端提供 serviceMethod 名称，以及该方法的函数前面 fptr，服务器传回的结果会存放在 reply 中
+func (c *Client) Call(serviceMethod string, fptr interface{} /*, reply interface{}*/) {
 	//
 	fn := reflect.ValueOf(fptr).Elem()
 
-	//
+	// 这个函数是要传给 MakeFunc() 的
 	f := func(req []reflect.Value) []reflect.Value {
 		clientConn := CreateConnector(c.conn)
 
@@ -42,7 +43,7 @@ func (c *Client) Call(name string, fptr interface{}) {
 			inArgs = append(inArgs, req[i].Interface()) // appends elements to the end of a slice.
 		}
 		// send request to server
-		err := clientConn.Send(Data{Name: name, Args: inArgs})
+		err := clientConn.Send(Data{Name: serviceMethod, Args: inArgs})
 		if err != nil { // local network error or encode error
 			return errorHandler(err)
 		}
@@ -83,3 +84,9 @@ func (c *Client) Call(name string, fptr interface{}) {
 
 	fn.Set(reflect.MakeFunc(fn.Type(), f))
 }
+
+// 该方法调用serviceMethod服务对应的函数，等待其完成，并返回error状态码
+// args 是调用服务时传入的参数，reply 存放服务执行的结果
+//func (c *Client) Call2(serviceMethod string, args interface{}, reply interface{}) error {
+//
+//}
